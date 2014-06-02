@@ -1,0 +1,37 @@
+<html>
+<head>
+<script type="text/javascript">
+var connection = new WebSocket('ws://s01.chase.sillevis.net:13337/primus/');
+
+var open = false;
+
+connection.onopen = function()
+{
+	open = true;
+	console.log('onopen triggered');
+}
+
+connection.onmessage = function(response)
+{
+	console.log(response.data);
+};
+
+connection.onerror = function(err)
+{
+	console.log("Error!");
+	console.log(err);
+}
+
+connection.onclose = function(war)
+{
+	console.log("Warning!!");
+	console.log(war);
+}
+
+function send(message)
+{
+	connection.send(message);
+}
+</script>
+</head>
+</html>
