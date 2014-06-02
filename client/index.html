@@ -64,7 +64,7 @@
       <script type="text/javascript">
         window.onload = function () {
           // Connect to primus
-          var primus = Primus.connect('http://s01.chase.sillevis.net:13337/'),
+          var primus = Primus.connect('ws://s01.chase.sillevis.net:13337/'),
               data;
 
           // React to a received message
@@ -72,13 +72,16 @@
             console.log('New message received: ', data)
             if('message' in data) {
               console.log(data.message);
+              console.log(data.delay);
             }
           });
 
           // Send a message
           $('form').submit(function() {
+            var date = new Date().getTime();
             data = {};
             data.message = $('#message').val();
+            data.timestamp = date;
             data.method  = 'message';
             primus.write(data);
 

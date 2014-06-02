@@ -19,7 +19,12 @@ primus.on('connection', function (spark) {
     console.log(data);
 
     if('message' in data) {
-      primus.write({'message': data.message});
+      var res = {'message': data.message};
+      if('timestamp' in data) {
+        var date = new Date().getTime();
+        res.delay = (date - data.timestamp);
+      }
+      primus.write(res);
       message = data.message;
     }
   });
