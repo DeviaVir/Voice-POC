@@ -5,7 +5,7 @@ var Primus  = require('primus'),
     message = '';
 
 var server  = http.createServer().listen(13337),
-    primus  = new Primus(server, { transformer: 'websockets' });
+    primus  = new Primus(server, { transformer: 'websockets', timeout: false });
 
 primus.on('connection', function (spark) {
   // spark is the new connection.
