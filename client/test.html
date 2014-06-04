@@ -1,37 +1,42 @@
 <html>
-<head>
-<script type="text/javascript">
-var connection = new WebSocket('ws://s01.chase.sillevis.net:13337/primus/');
+	<head>
+		<script type="text/javascript">
+			var connection = new WebSocket('ws://s01.chase.sillevis.net:13338/primus/');
 
-var open = false;
+			var open = false;
 
-connection.onopen = function()
-{
-	open = true;
-	console.log('onopen triggered');
-}
+			connection.onopen = function()
+			{
+				open = true;
+				console.log('onopen triggered');
+			}
 
-connection.onmessage = function(response)
-{
-	console.log(response.data);
-};
+			connection.onmessage = function(response)
+			{
+				console.log(response.data);
+			};
 
-connection.onerror = function(err)
-{
-	console.log("Error!");
-	console.log(err);
-}
+			connection.onerror = function(err)
+			{
+				console.log("Error!");
+				console.log(err);
+			}
 
-connection.onclose = function(war)
-{
-	console.log("Warning!!");
-	console.log(war);
-}
+			connection.onclose = function(war)
+			{
+				console.log("Warning!!");
+				console.log(war);
+			}
 
-function send(message)
-{
-	connection.send(message);
-}
-</script>
-</head>
+			function send(message)
+			{
+				connection.send(message);
+			}
+
+			setTimeout(function() {
+				console.log('Send stuff');
+				connection.send('{"message": "Go!", "timestamp": 0, "method": "message"}');
+			}, 2000);
+		</script>
+	</head>
 </html>
